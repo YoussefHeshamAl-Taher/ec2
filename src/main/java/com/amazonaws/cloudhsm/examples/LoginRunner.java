@@ -119,7 +119,7 @@ public class LoginRunner {
             return;
         }
         loginWithPinOnGivenProvider(user, pass, CloudHsmProvider.PROVIDER_NAME);
-        logout(provider);
+        //logout(provider);
     }
 
     public static void loginWithPinOnGivenProvider(String user, String password, String providerName) {
