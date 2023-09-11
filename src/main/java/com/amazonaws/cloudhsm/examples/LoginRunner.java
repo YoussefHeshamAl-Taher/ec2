@@ -172,7 +172,7 @@ public class LoginRunner {
 
     private static void importAesKey() throws Exception {
         System.out.println("Importing AES Key into the HSM using CloudHsm Attributes\n");
-        int aesKeySize = true;
+        int aesKeySize = 256;
         KeyGenerator keyGen = KeyGenerator.getInstance("AES", "SunJCE");
         keyGen.init(256);
         SecretKey sk = keyGen.generateKey();
