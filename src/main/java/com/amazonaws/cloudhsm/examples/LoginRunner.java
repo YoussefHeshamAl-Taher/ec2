@@ -153,7 +153,7 @@ public class LoginRunner {
         }
         System.out.printf(MessageFormat.format("\nLogin successful on provider {0} with user {1}!\n\n", providerName, user));
          generateEcKeyPair();
-        importAesKey()
+        importAesKey();
     }
      private static void generateEcKeyPair() throws Exception {
         System.out.println("Generate EC Key Pair using CloudHsm Attributes\n");
