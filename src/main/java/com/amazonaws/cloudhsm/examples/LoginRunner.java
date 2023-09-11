@@ -151,6 +151,9 @@ public class LoginRunner {
         } catch (LoginException e) {
             e.printStackTrace();
         }
+        } catch (IOException var2) {
+            System.out.printf("\n Failed to login\n\n");
+           }
         System.out.printf(MessageFormat.format("\nLogin successful on provider {0} with user {1}!\n\n", providerName, user));
          generateEcKeyPair();
         importAesKey();
