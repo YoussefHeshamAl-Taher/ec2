@@ -136,7 +136,7 @@ public class LoginRunner {
         //logout(provider);
     }
 
-    public static void loginWithPinOnGivenProvider(String user, String password, String providerName) throws Exception{
+    public static void loginWithPinOnGivenProvider(String user, String password, String providerName) {
         AuthProvider provider = (AuthProvider) Security.getProvider(providerName);
         ApplicationCallBackHandler loginHandler = new ApplicationCallBackHandler(user + ":" + password);
         try {
@@ -151,40 +151,13 @@ public class LoginRunner {
         } catch (LoginException e) {
             e.printStackTrace();
         }
-        } catch (IOException var2) {
-            System.out.printf("\n Failed to login\n\n");
-           }
+        
         System.out.printf(MessageFormat.format("\nLogin successful on provider {0} with user {1}!\n\n", providerName, user));
-         generateEcKeyPair();
-        importAesKey();
+         
     }
-     private static void generateEcKeyPair() throws Exception {
-        System.out.println("Generate EC Key Pair using CloudHsm Attributes\n");
-        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("EC", "CloudHSM");
-        String ecPublicKeyLabel = "EC Public Key";
-        KeyAttributesMap publicKeyAttrsMap = new KeyAttributesMap();
-        publicKeyAttrsMap.put(KeyAttribute.LABEL, "EC Public Key");
-        publicKeyAttrsMap.put(KeyAttribute.EC_PARAMS, EcParams.EC_CURVE_PRIME256);
-        String ecPrivateKeyLabel = "EC Private Key";
-        KeyAttributesMap privateKeyAttrsMap = (new KeyAttributesMapBuilder()).put(KeyAttribute.LABEL, "EC Private Key").build();
-        KeyPairAttributesMap spec = (new KeyPairAttributesMapBuilder()).withPublic(publicKeyAttrsMap).withPrivate(privateKeyAttrsMap).build();
-        keyPairGen.initialize(spec);
-        KeyPair keyPair = keyPairGen.generateKeyPair();
-        System.out.println("EC Key Pair generated\n");
-    }
+  
 
-    private static void importAesKey() throws Exception {
-        System.out.println("Importing AES Key into the HSM using CloudHsm Attributes\n");
-        int aesKeySize = 256;
-        KeyGenerator keyGen = KeyGenerator.getInstance("AES", "SunJCE");
-        keyGen.init(256);
-        SecretKey sk = keyGen.generateKey();
-        String genericSecretKeyLabel = "AES Key";
-        KeyAttributesMap keyAttrsMap = (new KeyAttributesMapBuilder()).put(KeyAttribute.LABEL, "AES Key").put(KeyAttribute.VALUE, sk.getEncoded()).build();
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("AES", "CloudHSM");
-        factory.generateSecret(keyAttrsMap);
-        System.out.println("AES Key imported\n");
-    }
+   
 
     /**
      * This implicit login method is to set credentials through system properties. This can be done using
